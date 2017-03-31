@@ -31,11 +31,12 @@ def infotodict(seqinfo):
     # --- ANATOMICAL ---
     t1 = create_key('{session}/anat/sub-{subject}_{session}_T1w')
     t2 = create_key('{session}/anat/sub-{subject}_{session}_T2w')
+
     # --- TASK ---
     # Template
-    # sub-<participant_label>[_ses-<session_label>]_task-<task_label>[_acq-<label>][_rec-<label>][_run-<index>]_bold.nii[.gz]
     rest = create_key('{session}/func/sub-{subject}_{session}_task-rest_acq-{direction}_bold')
     task = create_key('{session}/func/sub-{subject}_{session}_task-{task_name}_run-{item:02d}_bold')
+
     # --- Fieldmap ---
     spin_echo = create_key('{session}/fmap/sub-{subject}_{session}_dir-{direction}_epi')
 
@@ -51,12 +52,10 @@ def infotodict(seqinfo):
         # --- ANATOMICAL ---
         # T1-weighted
         if (sl == 176 or sl == 704) and (nt == 1) and ('MEMPRAGE' in protocol_name):
-            info[t1] = [series_number]
-        # elif (nt == 1) and ('MEMPRAGE' in protocol_name):
-        #     info[t1] = [series_number]
+            info[t1].append(series_number)
         # T2-weighted
         elif (sl == 176) and (nt == 1) and ('T2_SPACE' in protocol_name):
-            info[t2] = [series_number]
+            info[t2].append(series_number)
 
         # --- FUNCTIONAL ---
         # Rest
@@ -69,9 +68,10 @@ def infotodict(seqinfo):
         # QUESTION: are boolean-like strings converted to booleans in seqinfo?
         elif (sl == 32) and (nt == 136) and (motion_corrected == "True"):
             if ('fMRI_listen' in protocol_name):
-                info[task_listen].append({'item': series_number, 'task_name': 'listen')
+                info[task].append({'item': series_number, 'task_name': 'listen')
             elif ('fMRI_selfref' in protocol_name):
-                info[task_listen].append({'item': series_number, 'task_name': 'selfref')
+                info[task].append({'item': series_number, 'task_name': 'selfref')
+
         # --- FIELDMAP ---
         # Spin Echo EPI
         elif (sl == 260) and (nt == 1):
