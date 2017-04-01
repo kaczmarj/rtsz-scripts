@@ -1,4 +1,11 @@
-"""Heuristic to convert real-time schizophrenia data to BIDS format.
+"""Heuristic to convert real-time schizophrenia DICOM files to NIfTI files in
+BIDS format.
+
+Running this command on OpenMind:
+    >>> cd /mindhive/xnat/dicom_storage/rtsz
+    >>> heudiconv -d "%s_rtsz/dicom/*.dcm" -s <SUBJECT_ID> --ses <SESSION_NAME>
+    ... -f /om/user/jakubk/rtsz_scripts/bids_with_ses.py
+    ... -o <OUTPUT_DIRECTORY> -c dcm2niix --queue om_all_nodes
 
 Adapted from Heudiconv example heuristic:
     - https://github.com/nipy/heudiconv/blob/master/heuristics/bids_with_ses.py
