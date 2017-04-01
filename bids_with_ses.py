@@ -68,9 +68,9 @@ def infotodict(seqinfo):
         # QUESTION: are boolean-like strings converted to booleans in seqinfo?
         elif (sl == 32) and (nt == 136) and (motion_corrected == "True"):
             if ('fMRI_listen' in protocol_name):
-                info[task].append({'item': series_number, 'task_name': 'listen')
+                info[task].append({'item': series_number, 'task_name': 'listen'})
             elif ('fMRI_selfref' in protocol_name):
-                info[task].append({'item': series_number, 'task_name': 'selfref')
+                info[task].append({'item': series_number, 'task_name': 'selfref'})
 
         # --- FIELDMAP ---
         # Spin Echo EPI
